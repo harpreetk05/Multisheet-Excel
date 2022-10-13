@@ -1,0 +1,25 @@
+<div style="width: 50%; margin-left: 20%;">
+  <h1 style="text-align: center;">Upload file</h1>
+
+<input type="file" (change)="openFile($event)">
+
+<mat-tab-group>
+  <div *ngFor="let main of QuestionData">
+  <mat-tab label="{{main.name}}">
+    <li *ngFor="let inner of main.data;let index=index;">Question - {{inner.Question}}
+      <br><input  type="radio" (change)="change(inner.a,index)" [checked]="inner.userSelected === inner.a" [value]="inner.a">{{inner.a}}
+      <br><input  type="radio" (change)="change(inner.b,index)" [checked]="inner.userSelected === inner.b" [value]="inner.b">{{inner.b}}
+      <br><input  type="radio" (change)="change(inner.c,index)" [checked]="inner.userSelected === inner.c" [value]="inner.c">{{inner.c}}
+      <br><input  type="radio" (change)="change(inner.d,index)" [checked]="inner.userSelected === inner.d" [value]="inner.d">{{inner.d}}
+
+      <br>
+      <br>
+      <span>
+        {{inner.userSelected === inner.Ans ? 'Correct ' : 'Wrong' }}
+      </span>
+      <br>
+  </li>
+    </mat-tab>
+  </div>
+</mat-tab-group>
+</div>
