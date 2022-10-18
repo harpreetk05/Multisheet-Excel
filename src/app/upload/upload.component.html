@@ -2,24 +2,26 @@
   <h1 style="text-align: center;">Upload file</h1>
 
 <input type="file" (change)="openFile($event)">
-
-<mat-tab-group>
-  <div *ngFor="let main of QuestionData">
+<mat-tab-group (selectedIndexChange)="data.setValue($event)">
+  <div *ngFor="let main of QuestionData | paginate: { itemsPerPage: 1, currentPage: p };">
   <mat-tab label="{{main.name}}">
-    <li *ngFor="let inner of main.data;let index=index;">Question - {{inner.Question}}
-      <br><input  type="radio" (change)="change(inner.a,index)" [checked]="inner.userSelected === inner.a" [value]="inner.a">{{inner.a}}
-      <br><input  type="radio" (change)="change(inner.b,index)" [checked]="inner.userSelected === inner.b" [value]="inner.b">{{inner.b}}
-      <br><input  type="radio" (change)="change(inner.c,index)" [checked]="inner.userSelected === inner.c" [value]="inner.c">{{inner.c}}
-      <br><input  type="radio" (change)="change(inner.d,index)" [checked]="inner.userSelected === inner.d" [value]="inner.d">{{inner.d}}
-
+    <li scope="col" *ngFor="let data of main.data; index as index;">Question : {{data.Question}}
+      <br><input  type="radio"  (change)="change(data.a,index)" [checked]="data.userSelected === data.a" [value]="data.a">{{data.a}}
+      <br><input  type="radio"  (change)="change(data.b,index)" [checked]="data.userSelected === data.b" [value]="data.b">{{data.b}}
+      <br><input  type="radio"  (change)="change(data.c,index)" [checked]="data.userSelected === data.c" [value]="data.c">{{data.c}}
+      <br><input  type="radio"  (change)="change(data.d,index)" [checked]="data.userSelected === data.d" [value]="data.d">{{data.d}}
       <br>
-      <br>
+      <br >
       <span>
-        {{inner.userSelected === inner.Ans ? 'Correct ' : 'Wrong' }}
+        {{data.userSelected === data.Ans ? 'Correct' : 'Wrong'}}
       </span>
       <br>
   </li>
     </mat-tab>
   </div>
 </mat-tab-group>
+
+<div class="text-right">
+    <pagination-controls (pageChange)="p = $event"></pagination-controls>
+  </div>
 </div>
